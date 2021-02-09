@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -16,8 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tipPercent;
     private SeekBar seekBar;
     private TextView tvTipAmount;
-
-    public static final String TAG = "MainActivity";
+    private TextView tvTotal;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -29,20 +27,25 @@ public class MainActivity extends AppCompatActivity {
         tipPercent = findViewById(R.id.textViewTipPercent);
         seekBar = findViewById(R.id.seekBar_Percent);
         tvTipAmount = findViewById(R.id.textViewTipAmount);
+        tvTotal = findViewById(R.id.textViewTotalAmount);
 
         // set change listener for seek bar
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int i = 0;
-
+            int startPoint;
             NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                i = progress;
-                tipPercent.setText("" + i + "%");   // Also String.valueOf(The integer you want to change to a string) can be used inside of setText to convert int to string
-                double j = getTipAmount(i);
-                tvTipAmount.setText(numberFormat.format(j));
+
+                tipPercent.setText("" + progress + "%");   // Also String.valueOf(The integer you want to change to a string) can be used inside of setText to convert int to string
+
+                double tip = calcTipAmount(progress);
+                tvTipAmount.setText(numberFormat.format(tip));
+
+                double total = calcBillTotal(tip);
+                tvTotal.setText(numberFormat.format(total));
             }
 
+            // Track the start point of your mouse click or touch.
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -55,14 +58,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public double getTipAmount(int percent) {
-        double amount = Integer.parseInt(billAmount.getText().toString());
-        double tipAmount = (percent * amount) / 100;
+    public double calcTipAmount(int percent) {
+        double tipAmount = 0;
 
-        //Log.d(TAG, "getTipAmount: " + tipAmount);
-
+        if (billAmount.length() == 0) {
+            billAmount.requestFocus();
+            billAmount.setError("Enter Amount");
+        } else {
+            double amount = Double.parseDouble(billAmount.getText().toString());
+            tipAmount = (percent * amount) / 100;
+        }
         return tipAmount;
+    }
 
+    public double calcBillTotal(double tipAmount) {
+        double billTotal = 0;
 
+        if (billAmount.length() == 0) {
+            billAmount.requestFocus();
+            billAmount.setError("Enter Amount");
+        } else {
+            double amount = Double.parseDouble(billAmount.getText().toString());
+            billTotal = tipAmount + amount;
+        }
+        return billTotal;
     }
 }

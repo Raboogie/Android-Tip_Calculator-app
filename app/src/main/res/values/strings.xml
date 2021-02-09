@@ -4,6 +4,6 @@
     <string name="bill_Amount">Enter Amount</string>
     <string name="tip">Tip</string>
     <string name="total">Total</string>
-    <string name="tip_Amount">$20.00</string>
-    <string name="total_Amount">$50.00</string>
+    <string name="tip_Amount">$0.00</string>
+    <string name="total_Amount">$0.00</string>
 </resources>

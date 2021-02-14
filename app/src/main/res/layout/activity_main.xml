@@ -22,7 +22,8 @@
         android:autofillHints=""
         android:textStyle="bold"
         android:padding="12dp"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        />
 
     <TextView
         android:id="@+id/textViewTipPercent"
@@ -86,6 +87,7 @@
         android:gravity="center"
         android:layout_gravity="fill_horizontal"
         android:background="@color/design_default_color_secondary_variant"
-        android:layout_margin="12dp"/>
+        android:layout_margin="12dp"
+        />
 
 </GridLayout>

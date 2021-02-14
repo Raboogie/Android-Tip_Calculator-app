@@ -1,3 +1,5 @@
+// Author: Raynaldo Francis
+// GitHub handle: Raboogie
 package com.example.tipcalculator;
 
 import androidx.annotation.RequiresApi;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                //tipPercent.setText("Stop" + seekBar.getProgress() + "%");
             }
         });
     }

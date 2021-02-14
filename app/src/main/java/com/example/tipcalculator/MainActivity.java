@@ -1,5 +1,6 @@
 // Author: Raynaldo Francis
 // GitHub handle: Raboogie
+// Video Link: https://youtu.be/9S2zAcbL72c
 package com.example.tipcalculator;
 
 import androidx.annotation.RequiresApi;
